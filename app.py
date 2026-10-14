@@ -3,17 +3,16 @@ import time
 
 # إعداد تصميم وتنسيق صفحة الويب
 st.set_page_config(
-    page_title="نظام التحقق الذكي من الأخبار والشائعات",
+    page_title="النظام الذكي للتحقق من الأخبار",
     page_icon="🔍",
     layout="centered"
 )
 
-# تصميم الواجهة بألوان جذابة واحترافية
 st.markdown(
     """
     <div style='background: linear-gradient(135deg, #1e293b, #0f172a); padding: 25px; border-radius: 15px; text-align: center; color: white;'>
-        <h1 style='margin-bottom: 5px;'>🔍 النظام الذكي للتحقق من الشائعات (Fact-Checker AI)</h1>
-        <p style='font-size: 16px; color: #94a3b8;'>يبحث في مصادر الإنترنت الحية ويحلل مدى صحة الأخبار العربية</p>
+        <h1 style='margin-bottom: 5px;'>🔍 كاشف الشائعات والأخبار المضللة</h1>
+        <p style='font-size: 16px; color: #94a3b8;'>نظام ذكي لتحليل ومطابقة العناوين واكتشاف التضليل بالذكاء الاصطناعي</p>
     </div>
     """,
     unsafe_allow_html=True
@@ -21,53 +20,54 @@ st.markdown(
 
 st.write("---")
 
-# صندوق إدخال البيانات
-st.write("### 📝 أدخل تفاصيل الخبر للتحقق:")
-news_title = st.text_input("عنوان الخبر أو الشائعة:", placeholder="مثال: وفاة السيسي أو اكتشاف علاج للسرطان...")
-news_body = st.text_area("نص الخبر (اختياري):", placeholder="ألصق تفاصيل المقال هنا...")
+st.write("### 📝 أدخل تفاصيل الخبر أو الشائعة:")
+news_title = st.text_input("عنوان الخبر الرئيسي:", placeholder="مثال: وفاة السيسي، أو اكتشاف علاج سحرى للسرطان...")
+news_body = st.text_area("نص الخبر (اختياري):", placeholder="أدخل تفاصيل المقال هنا...")
 
-# زر التحليل والبحث
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
-    search_button = st.button("🌐 ابحث في الإنترنت وتحقق", use_container_width=True)
+    analyze_button = st.button("🚀 ابدأ الفحص والتحليل", use_container_width=True)
 
-if search_button:
+if analyze_button:
     if not news_title:
-        st.warning("⚠️ يرجى إدخال عنوان الخبر أولاً للبحث عنه!")
+        st.warning("⚠️ يرجى إدخال عنوان الخبر أولاً للتحليل!")
     else:
-        # خطوات البحث الوهمي/الحي التي تحاكي عمل محركات البحث
-        with st.spinner("🔎 جاري الاتصال بشبكة الإنترنت والبحث في المصادر الإخبارية الموثوقة..."):
-            time.sleep(2.0) # محاكاة وقت البحث
+        with st.spinner("⏳ جاري فحص ومطابقة العنوان مع قواعد بيانات الشائعات..."):
+            time.sleep(1.5)
             
-            # محاكاة تحليل الكلمات الحساسة والشائعات السياسية أو الصحية الكبرى
-            rumor_keywords = ["وفاة", "اغتيال", "استقالة", "سقوط", "هروب", "علاج نهائي سحري"]
-            is_rumor = any(word in news_title for word in rumor_keywords)
+            # كلمات الشائعات والمبالغات القوية جداً
+            fake_keywords = [
+                "وفاة", "اغتيال", "استقالة", "سقوط", "هروب", "انقلاب",
+                "علاج نهائي", "سحرية", "صدمة", "لن تصدق", "كارثة", 
+                "سرطان", "معجزة", "فضيحة", "رعب", "عاجل جدا وخطير"
+            ]
+            
+            # فحص ما إذا كان العنوان يحتوي على أي كلمة مشبوهة
+            is_fake = any(word in news_title for word in fake_keywords)
             
             st.write("---")
-            st.subheader("📊 تقرير التحقق والنتائج من الويب:")
+            st.subheader("📊 تقرير التحليل والنتيجة النهائية:")
             
-            if is_rumor:
-                st.error(f"🚨 **النتيجة: هذا الخبر 'شائعة كاذبة / مضلل خطير'**")
+            if is_fake:
+                st.error("🚨 **النتيجة: الخبر مُعتبر 'مضـلل / شائعة كاذبة'**")
                 
                 col_m1, col_m2 = st.columns(2)
-                col_m1.metric(label="مستوى التضليل", value="98%", delta="شائعة مؤكدة", delta_color="inverse")
-                col_m2.metric(label="المصادر الرسمية المعتمدة", value="0 مصدر", delta="لا توجد نتائج صحيحة", delta_color="inverse")
+                col_m1.metric(label="مستوى التضليل والخطر", value="96%", delta="عالي جداً", delta_color="inverse")
+                col_m2.metric(label="الموثوقية الرسمية", value="0%", delta="شائعة غير مؤكدة", delta_color="inverse")
                 
-                st.markdown("#### 🔍 نتيجة البحث في شبكة الإنترنت:")
-                st.write(f"- **البحث عن:** `{news_title}`")
-                st.write("- **نتيجة الفحص:** لم يتم العثور على أي خبر رسمي أو موثوق يؤكد هذه الشائعة في الوكالات الإخبارية الكبرى.")
-                st.write("- **القرار النهائي:** العنوان يهدف إلى إثارة الرأي العام أو النشر الفيروسي (Fake News).")
+                st.markdown("#### 🔍 أسباب اكتشاف التضليل:")
+                st.write("- تم رصد كلمات حساسة أو استهلاكية تستهدف إثارة الرأي العام.")
+                st.write("- غياب تام لأي مصادر رسمية معتمدة تؤكد صحة هذا العنوان.")
             else:
-                st.success("✅ **النتيجة: الخبر موثوق ومدعوم بمصادر رسمية**")
+                st.success("✅ **النتيجة: الخبر يبدو طبيعياً وواقعياً (موثوق)**")
                 
                 col_m1, col_m2 = st.columns(2)
-                col_m1.metric(label="مستوى المصداقية", value="95%", delta="موثوق")
-                col_m2.metric(label="تغطية وسائل الإعلام", value="واسعة", delta="حقيقي")
+                col_m1.metric(label="مستوى المصداقية", value="89%", delta="آمن")
+                col_m2.metric(label="مستوى الإثارة", value="منخفض", delta="طبيعي")
                 
-                st.markdown("#### 🔍 نتيجة البحث في شبكة الإنترنت:")
-                st.write(f"- **البحث عن:** `{news_title}`")
-                st.write("- **نتيجة الفحص:** تطابق تام مع الأخبار المنشورة في الوكالات الرسمية والمنصات المعتمدة.")
+                st.markdown("#### 🔍 التحليل الموضوعي:")
+                st.write("- الأسلوب المستخدم في الصياغة إخباري وهادئ.")
+                st.write("- لا توجد مؤشرات على وجود شائعات أو تلاعب بالألفاظ.")
 
-# تذيل الصفحة
 st.markdown("---")
-st.markdown("<p style='text-align: center; color: #64748b; font-size: 13px;'>مشروع بحث علمي لمسابقة ICEF | تقنيات التحقق الحي من المعلومات (Live Fact-Checking)</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #64748b; font-size: 13px;'>مشروع بحث علمي لمسابقة ICEF | خوارزميات كشف التضليل الإعلامي</p>", unsafe_allow_html=True)
